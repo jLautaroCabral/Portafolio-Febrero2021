@@ -1,0 +1,25 @@
+{
+  "name": "portafolio_lc",
+  "version": "1.0.0",
+  "description": "Portafolio suplementario",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jLautaroCabral/PortafolioFebrero2021.git"
+  },
+  "keywords": [
+    "matterjs"
+  ],
+  "author": "jLautaroCabral",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jLautaroCabral/PortafolioFebrero2021/issues"
+  },
+  "homepage": "https://github.com/jLautaroCabral/PortafolioFebrero2021#readme",
+  "dependencies": {
+    "matter-js": "^0.16.1"
+  }
+}
