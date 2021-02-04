@@ -16,13 +16,14 @@ function setup() {
 
     Engine.run(engine);
 
-    groud = Bodies.rectangle(200, height, width, 100, { isStatic: true});
+    groud = Bodies.rectangle(width / 2, height, width, 100, { isStatic: true});
+    fill(150);
     
     World.add(world, groud);
 }
 
-function mouseDragged() {
-    boxes.push(new Box(mouseX, mouseY, 20, 20));
+function mousePressed() {
+    boxes.push(new Box(mouseX, mouseY, random(15,35), random(15,35)));
 }
 
 function draw() {
@@ -31,6 +32,14 @@ function draw() {
     for (let i = 0; i < boxes.length; i++) {
         boxes[i].show();
     }
+    
+    stroke(255);
+    fill(170);
+    strokeWeight(1);
+    rectMode(CENTER);
+    //line(200, height, width, 100);
+    rect(groud.position.x, groud.position.y, width, 100);
+
 }
 
  
