@@ -8,7 +8,12 @@ var Engine = Matter.Engine,
 var engine;
 var world;
 var boxes = [];
-var groud;
+var circles = [];
+var boundaries = [];
+
+var ground;
+
+
 function setup() {
     createCanvas(400, 400);
     engine = Engine.create();
@@ -16,30 +21,37 @@ function setup() {
 
     Engine.run(engine);
 
-    groud = Bodies.rectangle(width / 2, height, width, 100, { isStatic: true});
-    fill(150);
-    
-    World.add(world, groud);
+    boundaries.push(new Boundary(width / 2, height, width, 100, 0.3));
+    boundaries.push(new Boundary(width / 2, height, width, 100, 0.6));
+
+    //fill(150);
+    //World.add(world, boundaries);
 }
 
 function mousePressed() {
-    boxes.push(new Box(mouseX, mouseY, random(15,35), random(15,35)));
+    circles.push(new Ellipse(mouseX, mouseY, random(15,35)));
 }
 
 function draw() {
     background(51);
-    rect(0, 0, groud.h, groud.h);
+    //rect(0, 0, ground.h, ground.h);
     for (let i = 0; i < boxes.length; i++) {
         boxes[i].show();
     }
-    
+    for (let i = 0; i < circles.length; i++) {
+        circles[i].show();
+    }
+    for (let i = 0; i < boundaries.length; i++) {
+        boundaries[i].show();
+    }
+
     stroke(255);
     fill(170);
     strokeWeight(1);
     rectMode(CENTER);
-    //line(200, height, width, 100);
-    rect(groud.position.x, groud.position.y, width, 100);
 
+    //line(200, height, width, 100);
+    //rect(groud.position.x, groud.position.y, width, 100);
 }
 
  
