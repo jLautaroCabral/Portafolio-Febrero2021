@@ -1,6 +1,6 @@
 function Box(x, y, w, h) {
     let options = {
-        friction: 0.3,
+        friction: 0,
         restitution: 0.6,
     }
 
