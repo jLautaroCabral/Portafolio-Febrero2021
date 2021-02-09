@@ -1,8 +1,11 @@
+//const { Constraint } = require("matter-js");
+
 // module aliases
 var Engine = Matter.Engine,
     //Render = Matter.Render,
     World = Matter.World,
-    Bodies = Matter.Bodies;
+    Bodies = Matter.Bodies,
+    Constraint = Matter.Constraint;
 
 // create an engine
 var engine;
@@ -14,16 +17,47 @@ var boundaries = [];
 var ground;
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(700, 700);
     engine = Engine.create();
     world = engine.world;
 
     Engine.run(engine);
 
-    boundaries.push(new Boundary(0, height/2, width, 20, 0.2));
-    boundaries.push(new Boundary(width, height/4, width, 20, -0.2));
+    //boundaries.push(new Boundary(0, height/2, width, 20, 0.2));
+    //boundaries.push(new Boundary(width, height/4, width, 20, -0.2));
 
     createBox();
+
+    let prev = null;
+    for (let x = 20; x < 380; x += 40) {
+        var p = new Ellipse(x, 100, 10);
+        circles.push(p);
+
+        if(prev) {
+            var options = {
+                bodyA: p.body,
+                bodyB: prev.body,
+                lenght: 50,
+                stiffness: 0.4,
+            }
+            var constraint = Constraint.create(options);
+            World.add(world, constraint);
+        }
+        prev = p;
+    }
+
+    //var p2 = new Ellipse(250, 40, 10);
+    /* circles.push(p2);
+
+    var options = {
+        bodyA: p1.body,
+        bodyB: p2.body,
+        lenght: 50,
+        stiffness: 0.4,
+    }
+
+    var constraint = Constraint.create(options);
+    World.add(world, constraint); */
     
     //boundaries.push(new Boundary(0, height/2, 20, height, 0));
 
@@ -32,7 +66,7 @@ function setup() {
 }
 
 function createBox() {
-    //boundaries.push(new Boundary(width/2, height, width, 20, 0)); // Bottom
+    boundaries.push(new Boundary(width/2, height, width, 20, 0)); // Bottom
     boundaries.push(new Boundary(width/2, 0, width, 20, 0)); // Top
     boundaries.push(new Boundary(0, height/2, 20, height, 0)); // Left
     boundaries.push(new Boundary(width, height/2, 20, height, 0)); // Right
@@ -55,7 +89,7 @@ function invoke(t, func) {
 }
 
 function draw() {
-    invoke(4, () => circles.push(new Ellipse(350, 30, random(10,15))));
+    //invoke(4, () => circles.push(new Ellipse(350, 30, random(10,15))));
 
     background(51);
     //rect(0, 0, ground.h, ground.h);
@@ -78,6 +112,8 @@ function draw() {
     fill(170);
     strokeWeight(1);
     rectMode(CENTER);
+
+    line(circles[0].body.position.x, circles[0].body.position.y, circles[1].body.position.x, circles[1].body.position.y);
 
     //line(200, height, width, 100);
     //rect(groud.position.x, groud.position.y, width, 100);
