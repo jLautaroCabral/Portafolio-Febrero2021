@@ -29,8 +29,13 @@ function setup() {
     createBox();
 
     let prev = null;
-    for (let x = 20; x < 380; x += 40) {
-        var p = new Ellipse(x, 100, 10);
+    for (let x = 60; x < 380; x += 40) {
+        let fixed = false;
+
+        if(!prev)
+            fixed = true;
+
+        var p = new Ellipse(x, 100, 10, fixed);
         circles.push(p);
 
         if(prev) {
@@ -38,7 +43,7 @@ function setup() {
                 bodyA: p.body,
                 bodyB: prev.body,
                 lenght: 50,
-                stiffness: 0.4,
+                stiffness: 0.1,
             }
             var constraint = Constraint.create(options);
             World.add(world, constraint);
@@ -113,7 +118,10 @@ function draw() {
     strokeWeight(1);
     rectMode(CENTER);
 
-    line(circles[0].body.position.x, circles[0].body.position.y, circles[1].body.position.x, circles[1].body.position.y);
+    for (let i = 0; i < circles.length; i++) {
+        if(i != circles.length - 1)
+            line(circles[i].body.position.x, circles[i].body.position.y, circles[i + 1].body.position.x, circles[i + 1].body.position.y);
+    }
 
     //line(200, height, width, 100);
     //rect(groud.position.x, groud.position.y, width, 100);

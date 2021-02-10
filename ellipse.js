@@ -1,7 +1,8 @@
-function Ellipse(x, y, r) {
+function Ellipse(x, y, r, isFixed) {
     let options = {
         friction: 0,
-        restitution: 0.6,
+        restitution: 1,
+        isStatic: isFixed,
     }
 
     this.body = Bodies.circle(x, y, r, options);
