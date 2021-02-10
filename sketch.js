@@ -1,5 +1,3 @@
-//const { Constraint } = require("matter-js");
-
 // module aliases
 var Engine = Matter.Engine,
     //Render = Matter.Render,
@@ -50,24 +48,6 @@ function setup() {
         }
         prev = p;
     }
-
-    //var p2 = new Ellipse(250, 40, 10);
-    /* circles.push(p2);
-
-    var options = {
-        bodyA: p1.body,
-        bodyB: p2.body,
-        lenght: 50,
-        stiffness: 0.4,
-    }
-
-    var constraint = Constraint.create(options);
-    World.add(world, constraint); */
-    
-    //boundaries.push(new Boundary(0, height/2, 20, height, 0));
-
-    //fill(150);
-    //World.add(world, boundaries);
 }
 
 function createBox() {
@@ -78,14 +58,12 @@ function createBox() {
 }
 
 function mousePressed() {
-    //circles.push(new Ellipse(mouseX, mouseY, random(10,15)));
 }
 function mouseDragged() {
-    //circles.push(new Ellipse(mouseX, mouseY, random(10,15)));
 }
 
 let timer = 0;
-function invoke(t, func) {
+function invoke(t, func) { // Por el momento no usaré esta función
     timer++;
     if(timer > t) {
         func();
@@ -94,10 +72,11 @@ function invoke(t, func) {
 }
 
 function draw() {
-    //invoke(4, () => circles.push(new Ellipse(350, 30, random(10,15))));
-
+    stroke(255);
+    fill(170);
+    strokeWeight(1);
+    rectMode(CENTER);
     background(51);
-    //rect(0, 0, ground.h, ground.h);
     for (let i = 0; i < boxes.length; i++) {
         boxes[i].show();
     }
@@ -112,40 +91,9 @@ function draw() {
     for (let i = 0; i < boundaries.length; i++) {
         boundaries[i].show();
     }
-
-    stroke(255);
-    fill(170);
-    strokeWeight(1);
-    rectMode(CENTER);
-
     for (let i = 0; i < circles.length; i++) {
         if(i != circles.length - 1)
             line(circles[i].body.position.x, circles[i].body.position.y, circles[i + 1].body.position.x, circles[i + 1].body.position.y);
     }
-
-    //line(200, height, width, 100);
-    //rect(groud.position.x, groud.position.y, width, 100);
     console.log(circles.length, world.bodies.length);
 }
-
-/*
-// create a renderer
-var render = Render.create({
-    element: document.body,
-    engine: engine
-});
-
-// create two boxes and a ground
-
-var boxB = Bodies.rectangle(450, 50, 80, 80);
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
-
-// add all of the bodies to the world
-World.add(engine.world, [boxA, boxB, ground]);
-
-// run the engine
-Engine.run(engine);
-
-// run the renderer
-Render.run(render);
-*/
