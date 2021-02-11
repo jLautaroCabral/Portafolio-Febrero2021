@@ -3,7 +3,9 @@ var Engine = Matter.Engine,
     //Render = Matter.Render,
     World = Matter.World,
     Bodies = Matter.Bodies,
-    Constraint = Matter.Constraint;
+    Constraint = Matter.Constraint,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse;
 
 // create an engine
 var engine;
@@ -15,7 +17,7 @@ var boundaries = [];
 var ground;
 
 function setup() {
-    createCanvas(700, 700);
+    let canvas = createCanvas(700, 700);
     engine = Engine.create();
     world = engine.world;
 
@@ -37,24 +39,32 @@ function setup() {
         circles.push(p);
 
         if(prev) {
-            var options = {
+            let options = {
                 bodyA: p.body,
                 bodyB: prev.body,
                 lenght: 50,
-                stiffness: 0.1,
+                stiffness: 0.4,
             }
             var constraint = Constraint.create(options);
             World.add(world, constraint);
         }
         prev = p;
     }
+
+    let canvasMouse = Mouse.create(canvas.elt);
+    canvasMouse.pixelRatio = pixelDensity()
+    let options = {
+        mouse: canvasMouse,
+    }
+    mConstraint = MouseConstraint.create(engine, options);
+    World.add(world, mConstraint);
 }
 
 function createBox() {
-    boundaries.push(new Boundary(width/2, height, width, 20, 0)); // Bottom
-    boundaries.push(new Boundary(width/2, 0, width, 20, 0)); // Top
-    boundaries.push(new Boundary(0, height/2, 20, height, 0)); // Left
-    boundaries.push(new Boundary(width, height/2, 20, height, 0)); // Right
+    boundaries.push(new Boundary(width/2, height, width, 40, 0)); // Bottom
+    boundaries.push(new Boundary(width/2, 0, width, 40, 0)); // Top
+    boundaries.push(new Boundary(0, height/2, 40, height, 0)); // Left
+    boundaries.push(new Boundary(width, height/2, 40, height, 0)); // Right
 }
 
 function mousePressed() {
@@ -94,6 +104,13 @@ function draw() {
     for (let i = 0; i < circles.length; i++) {
         if(i != circles.length - 1)
             line(circles[i].body.position.x, circles[i].body.position.y, circles[i + 1].body.position.x, circles[i + 1].body.position.y);
+    }
+
+    if(mConstraint.body) {
+        let pos = mConstraint.body.position;
+        let m = mConstraint.mouse.position;
+        stroke(0,255,0);
+        line(pos.x, pos.y, m.x, m.y); 
     }
     console.log(circles.length, world.bodies.length);
 }
