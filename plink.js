@@ -1,5 +1,5 @@
-function Particle(x, y, r) {
-    this.body = Bodies.circle(x, y, r);
+function Plink(x, y, r) {
+    this.body = Bodies.circle(x, y, r, {isStatic: true});
     World.add(world, this.body);
     this.r = r;
 
@@ -12,7 +12,7 @@ function Particle(x, y, r) {
     } */
 }
 
-Particle.prototype.show = function () {
+Plink.prototype.show = function () {
     fill(255);
     stroke(255);
     let pos = this.body.position;
