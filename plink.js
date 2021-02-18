@@ -1,5 +1,10 @@
 function Plink(x, y, r) {
-    this.body = Bodies.circle(x, y, r, {isStatic: true});
+    let options = {
+        restitution: 1,
+        friction: 0,
+        isStatic: true
+    }
+    this.body = Bodies.circle(x, y, r, options);
     World.add(world, this.body);
     this.r = r;
 
@@ -13,7 +18,7 @@ function Plink(x, y, r) {
 }
 
 Plink.prototype.show = function () {
-    fill(255);
+    fill('green');
     stroke(255);
     let pos = this.body.position;
     push();

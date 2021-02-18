@@ -1,5 +1,9 @@
 function Particle(x, y, r) {
-    this.body = Bodies.circle(x, y, r);
+    let options = {
+        restitution: 1,
+        friction: 0
+    }
+    this.body = Bodies.circle(x, y, r, options);
     World.add(world, this.body);
     this.r = r;
 

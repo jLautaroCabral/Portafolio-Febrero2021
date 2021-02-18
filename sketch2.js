@@ -15,7 +15,7 @@ var cols = 5;
 var rows = 5;
 //let p;
 function setup() {
-    createCanvas(600, 400);
+    createCanvas(600, 800);
     engine = Engine.create();
     world = engine.world;
 
@@ -28,8 +28,11 @@ function setup() {
 
         console.log(spacing + "; " + rows);
 
-        for (var i = 0; i < cols; i++) {
-            plinkos.push(new Plink(i * spacing, j * spacing, 10));
+        for (let i = 0; i < cols; i++) {
+            let x = spacing / 2 + i * spacing;
+            let y = spacing + j * spacing;
+            
+            plinkos.push(new Plink(x, y, 10));
         }
     }
 }
